@@ -28,41 +28,48 @@ class Weather extends React.Component {
         this.state = {
             latitude: 0,
             longitude: 0,
-            alerts: []
+            alerts: [],
+            zones: []
         };
     }
 
     //maybe use promise chaining
     //TODO: figure out how to properly make a group of rest calls
-    fetchData = (latitude, longitude) => {
-        this.fetchAlerts(latitude, longitude);
-        this.fetchZones(latitude, longitude);
-    }
+    fetchData = async (latitude, longitude) => {
+        const alertsUrl = this.govUrl + "/alerts?";
+        const zonesUrl = this.govUrl + "/zones?";
 
-    fetchAlerts = (latitude, longitude) => {
-        const url = this.govUrl + "/alerts?";
-
-        fetch(url + new URLSearchParams({
+        const alerts = await fetch(alertsUrl + new URLSearchParams({
             message_type: "alert",
             point: latitude + "," + longitude
         }), {
             method: "GET",
-        })
-            .then(response => response.json())
-            .then(json => this.setState({ alerts: json.features }));
-    }
+        }).then(response => response.json());
 
-    fetchZones = (latitude, longitude) => {
-        const url = this.govUrl + "/zones?"
-
-        fetch(url + new URLSearchParams({
+        const zones = await fetch(zonesUrl + new URLSearchParams({
             point: latitude + "," + longitude
-        }, {
+        }), {
             method: "GET",
-        })
-            .then(response => response.json())
-            .then(json => console.log(JSON.stringify(json))));
+        }).then(response => response.json());
+
+        console.log(alerts);
+        console.log(zones);
+
+        this.setState({
+            alerts: alerts.features,
+            "latitude": latitude,
+            "longitude": longitude,
+            zones : zones.features
+        });
+
     }
+
+    // fetchAlerts = (latitude, longitude) => {
+    //     const url = this.govUrl + "/alerts?";
+
+    //         .then(response => response.json())
+    //         .then(json => this.setState({ alerts: json.features }));
+    // }
 
     componentDidMount() {
         navigator.geolocation.getCurrentPosition((position) => {
@@ -72,11 +79,6 @@ class Weather extends React.Component {
 
             this.fetchData(latitude, longitude);
 
-            this.setState(
-                {
-                    "latitude": latitude,
-                    "longitude": longitude
-                });
         });
     }
 
@@ -87,6 +89,7 @@ class Weather extends React.Component {
                 <p>Your coordinates are ({this.state.latitude}, {this.state.longitude})</p>
                 <p>There are {this.state.alerts.length} alerts for your area.</p>
                 {this.state.alerts.map(a => React.createElement('p', { style: { color: "red" } }, a.properties.event))}
+                {this.state.zones.map(a => React.createElement('p', { style: { color: "green" } }, a.properties.id))}
             </div>
         );
     }
