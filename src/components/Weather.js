@@ -64,13 +64,6 @@ class Weather extends React.Component {
 
     }
 
-    // fetchAlerts = (latitude, longitude) => {
-    //     const url = this.govUrl + "/alerts?";
-
-    //         .then(response => response.json())
-    //         .then(json => this.setState({ alerts: json.features }));
-    // }
-
     componentDidMount() {
         navigator.geolocation.getCurrentPosition((position) => {
 
