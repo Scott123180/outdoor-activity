@@ -29,7 +29,8 @@ class Weather extends React.Component {
             latitude: 0,
             longitude: 0,
             alerts: [],
-            zones: []
+            zone: "",
+            forecast: {}
         };
     }
 
@@ -50,16 +51,27 @@ class Weather extends React.Component {
             point: latitude + "," + longitude
         }), {
             method: "GET",
-        }).then(response => response.json());
+        }).then(response => response.json())
 
-        console.log(alerts);
-        console.log(zones);
+        const forecastZone =
+            zones.features.filter((feature) => feature.id.includes("forecast"))[0];
+
+        console.log(forecastZone);
+
+        const forecast = await fetch("https://api.weather.gov/zones/public/" + forecastZone.properties.id + "/forecast",
+            { method: "GET", })
+            .then(response => response.json());
+
+        console.log(forecast);
+
+        //curl -X GET "https://api.weather.gov/zones/public/NJZ006/forecast" -H "accept: application/geo+json"
 
         this.setState({
             alerts: alerts.features,
-            "latitude": latitude,
-            "longitude": longitude,
-            zones : zones.features
+            latitude: latitude,
+            longitude: longitude,
+            forecast: forecast,
+            zone: forecastZone.properties.id
         });
 
     }
@@ -82,7 +94,8 @@ class Weather extends React.Component {
                 <p>Your coordinates are ({this.state.latitude}, {this.state.longitude})</p>
                 <p>There are {this.state.alerts.length} alerts for your area.</p>
                 {this.state.alerts.map(a => React.createElement('p', { style: { color: "red" } }, a.properties.event))}
-                {this.state.zones.map(a => React.createElement('p', { style: { color: "green" } }, a.properties.id))}
+                {React.createElement('p', { style: { color: "green" } }, this.state.zone)}
+                {React.createElement('p', { style: { color: "blue" } }, JSON.stringify(this.state.forecast.properties))}
             </div>
         );
     }
