@@ -6,9 +6,9 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        Welcome to a weather app.
-      </header>
+        Welcome to a weather app! 🌞
       <Weather />
+      </header>
     </div>
   );
 }

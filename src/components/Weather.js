@@ -8,22 +8,42 @@ import React from "react";
 
 class Weather extends React.Component {
 
+    govUrl = "https://api.weather.gov"; 
+
     constructor() {
         super();
 
         this.state = {
             latitude: 0,
-            longitude: 0
+            longitude: 0,
+            alerts: []
         };
+    }
+
+    fetchData = (latitude, longitude) => {
+        this.fetchAlerts(latitude,longitude); 
+    }
+
+    fetchAlerts = (latitude, longitude) => {
+        const url = this.govUrl + "/alerts?";
+
+        fetch(url + new URLSearchParams({
+            message_type : "alert",
+            point : latitude + "," + longitude
+        }), {
+            method: "GET",
+        })
+        .then(response => response.json())
+        .then(json => this.setState({alerts : json.features}));
     }
 
     componentDidMount() {
         navigator.geolocation.getCurrentPosition((position) => {
 
-            const p = await position();
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
 
-            const latitude = p.coors.latitude;
-            const longitude = p.coords.longitude;
+            this.fetchData(latitude, longitude);
 
             this.setState(
                 {
@@ -34,9 +54,15 @@ class Weather extends React.Component {
     }
 
     render() {
-        
+
+        console.log(this.state.alerts);
+
         return (
-            <p>Your coordinates are ({this.state.latitude}, {this.state.latitude})</p>
+            <div>
+                <p>Your coordinates are ({this.state.latitude}, {this.state.longitude})</p>
+                <p>There are {this.state.alerts.length} alerts for your area.</p>
+                <p>{this.state.alerts.map(a => React.createElement('p', {}, a.properties.event))}</p>
+            </div>
         );
     }
 }
