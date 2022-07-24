@@ -11,7 +11,7 @@ function App() {
       </header>
       <footer>
         Disclaimer: Use application at your own risk. Data and information may be innacurate. Application is in development and features may be broken. 
-        Please consult your physician before excercise.
+        Please consult your physician before excercise. Weather data from weather.gov
       </footer>
     </div>
   );
