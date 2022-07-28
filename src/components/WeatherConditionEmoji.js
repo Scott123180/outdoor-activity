@@ -1,7 +1,6 @@
 /*
 
 for current sky conditions:
-https://www.weather.gov/hun/zfp_terminology
 WeatherConditionEmoji.js
 
 */
@@ -10,30 +9,45 @@ import React from "react";
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
+import { WiDaySunny, WiDaySunnyOvercast, WiDayCloudy, WiDayCloudyHigh } from 'react-icons/wi';
+import { TiWeatherCloudy } from 'react-icons/ti';
 
 class WeatherConditionEmoji extends React.Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            weatherIconMap: this.createWeatherIconMap()
+        }
     }
 
-    
+    //https://www.weather.gov/hun/zfp_terminology
+    createWeatherIconMap = () => {
 
-    /*
-CLEAR or SUNNY	No clouds
-MOSTLY SUNNY or MOSTLY CLEAR	1/8 to 2/8 clouds
-PARTLY CLOUDY or PARTLY SUNNY	3/8 to 5/8 clouds
-MOSTLY CLOUDY (sometimes CONSIDERABLE CLOUDINESS)	6/8 to 7/8 clouds
-CLOUDY	8/8 clouds
-Also used:
-INCREASING CLOUDS
-DECREASING CLOUDS
-*/
+        const iconMap = new Map();
+
+        iconMap.set('CLEAR', <WiDaySunny size={50} />);
+        iconMap.set('SUNNY', <WiDaySunny size={50}/>);
+        iconMap.set('MOSTLY SUNNY', <WiDaySunny size={50}/>);
+        iconMap.set('MOSTLY CLEAR', <WiDaySunny size={50}/>);
+        iconMap.set('PARTLY CLOUDY', <WiDaySunnyOvercast size={50}/>);
+        iconMap.set('PARTLY SUNNY', <WiDaySunnyOvercast size={50}/>);
+        iconMap.set('MOSTLY CLOUDY', <WiDayCloudy size={50}/>);
+        iconMap.set('CONSIDERABLE CLOUDINESS', <WiDayCloudy size={50}/>);
+        iconMap.set('CLOUDY', <TiWeatherCloudy size={50}/>);
+        iconMap.set('INCREASING CLOUDS', <TiWeatherCloudy size={50}/>);
+        iconMap.set('DECREASING CLOUDS', <TiWeatherCloudy size={50}/>);
+
+        return iconMap;
+
+    }
+
+
+
 
     render() {
 
         //return <p style={{color: "yellow"}}>Here is the current weather conditions for your area: {this.props.textDescription}</p>
-
-        const emoji = "picture";
 
         return (
             <Card sx={{ minWidth: 275 }}>
@@ -42,8 +56,8 @@ DECREASING CLOUDS
                         Current weather
                     </Typography>
                     <Typography variant="h5" component="div">
+                        {this.state.weatherIconMap.get((this.props.textDescription).toUpperCase())}
                     </Typography>
-                    {emoji}
                     <Typography sx={{ mb: 1.5 }} color="text.secondary">
                         {this.props.textDescription}
                     </Typography>
@@ -56,6 +70,10 @@ DECREASING CLOUDS
     }
 
 }
+
+WeatherConditionEmoji.defaultProps = {
+    textDescription : ""
+};
 
 
 export default WeatherConditionEmoji;
