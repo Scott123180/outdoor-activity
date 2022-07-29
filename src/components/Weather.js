@@ -1,5 +1,7 @@
 import React from "react";
 import WeatherConditionEmoji from "./WeatherConditionEmoji";
+import Alert from "./Alert";
+import moment from "moment";
 
 //https://www.weather.gov/documentation/services-web-api#/
 
@@ -118,6 +120,35 @@ class Weather extends React.Component {
         });
     }
 
+    //todo
+    alertCards = (alerts) => {
+
+        const currentTime = moment.utc();
+
+        return alerts
+            .filter(a => {
+                //todo
+                return true;
+
+                const onset = moment(a.properties.onset).utc();
+                const ends = moment(a.properties.ends).utc();
+
+                if(!onset.isValid() || !ends.isValid()){
+
+                    console.log("bad event");
+                    console.log(JSON.stringify(a.properties));
+
+                    return false;
+                }
+
+                return currentTime.isSameOrAfter(onset)
+                    && currentTime.isBefore(ends);
+            })
+            .map(a => React.createElement(Alert, a.properties))
+
+
+    }
+
 
     render() {
 
@@ -127,7 +158,7 @@ class Weather extends React.Component {
                 <p style={{ color: "purple" }}>This is your current station {this.state.station}</p>
                 <WeatherConditionEmoji textDescription={this.state.latestCondition} />
                 <p>There are {this.state.alerts.length} alerts for your area.</p>
-                {this.state.alerts.map(a => React.createElement('p', { style: { color: "red" } }, a.properties.event))}
+                {this.alertCards(this.state.alerts)}
                 {React.createElement('p', { style: { color: "green" } }, this.state.zone)}
                 {React.createElement('p', { style: { color: "blue" } }, JSON.stringify(this.state.forecast.properties))}
             </div>
