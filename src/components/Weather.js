@@ -119,36 +119,35 @@ class Weather extends React.Component {
 
         });
     }
-
-    //todo
-    alertCards = (alerts) => {
-
+    activeAlerts = (alerts) => {
         const currentTime = moment.utc();
 
         return alerts
             .filter(a => {
-                //todo
-                return true;
 
                 const onset = moment(a.properties.onset).utc();
-                const ends = moment(a.properties.ends).utc();
+                const ends = a.properties.ends === null ? null : moment(a.properties.ends).utc();
 
-                if(!onset.isValid() || !ends.isValid()){
+                if (!onset.isValid()) return false;
 
-                    console.log("bad event");
-                    console.log(JSON.stringify(a.properties));
-
-                    return false;
+                if (this.noEndTimeSpecified(ends)) {
+                    return currentTime.isSameOrAfter(onset)
+                        && currentTime.date === onset.date();
+                } else {
+                    return currentTime.isSameOrAfter(onset)
+                        && currentTime.isBefore(ends);
                 }
+            });
+    }
 
-                return currentTime.isSameOrAfter(onset)
-                    && currentTime.isBefore(ends);
-            })
+    alertCards = (alerts) => {
+
+        return alerts
             .map(a => React.createElement(Alert, a.properties))
-
 
     }
 
+    noEndTimeSpecified = (ends) => ends === null;
 
     render() {
 
@@ -157,8 +156,8 @@ class Weather extends React.Component {
                 <p>Your coordinates are ({this.state.latitude}, {this.state.longitude})</p>
                 <p style={{ color: "purple" }}>This is your current station {this.state.station}</p>
                 <WeatherConditionEmoji textDescription={this.state.latestCondition} />
-                <p>There are {this.state.alerts.length} alerts for your area.</p>
-                {this.alertCards(this.state.alerts)}
+                <p>There are {this.activeAlerts(this.state.alerts).length} active alerts for your area.</p>
+                {this.alertCards(this.activeAlerts(this.state.alerts))}
                 {React.createElement('p', { style: { color: "green" } }, this.state.zone)}
                 {React.createElement('p', { style: { color: "blue" } }, JSON.stringify(this.state.forecast.properties))}
             </div>

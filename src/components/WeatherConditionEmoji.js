@@ -9,7 +9,7 @@ import React from "react";
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import { WiDaySunny, WiDaySunnyOvercast, WiDayCloudy, WiDayCloudyHigh } from 'react-icons/wi';
+import { WiDaySunny, WiDaySunnyOvercast, WiDayCloudy} from 'react-icons/wi';
 import { TiWeatherCloudy } from 'react-icons/ti';
 
 class WeatherConditionEmoji extends React.Component {
