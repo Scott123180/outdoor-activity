@@ -47,8 +47,6 @@ class WeatherConditionEmoji extends React.Component {
 
     render() {
 
-        //return <p style={{color: "yellow"}}>Here is the current weather conditions for your area: {this.props.textDescription}</p>
-
         return (
             <Card sx={{ minWidth: 275 }}>
                 <CardContent>
