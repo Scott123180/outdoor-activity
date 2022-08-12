@@ -45,36 +45,34 @@ class Alert extends React.Component {
         const weatherIcon = this.props.event === null ? "picture" : this.state.advisoryIconMap.get(weatherEvent);
 
         return (
-            <Grid xs = {2}>
-                <Card sx={{ minWidth: 275 }}>
-                    <CardContent>
-                        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                            Alert
-                        </Typography>
-                        <Typography variant="h5" component="div">
-                            {weatherIcon}
-                        </Typography>
+            <Card>
+                <CardContent>
+                    <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                        Alert
+                    </Typography>
+                    <Typography variant="h5" component="div">
+                        {weatherIcon}
+                    </Typography>
 
-                        <Accordion>
-                            <AccordionSummary
-                                expandIcon={<ExpandMoreIcon />}
-                                aria-controls="panel1a-content"
-                                id="panel1a-header"
-                            >
-                                <Typography>{this.props.headline}</Typography>
-                            </AccordionSummary>
-                            <AccordionDetails>
-                                <Typography>
-                                    {this.props.description}
-                                </Typography>
-                            </AccordionDetails>
-                        </Accordion>
-                        <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                            {this.props.event}
-                        </Typography>
-                    </CardContent>
-                </Card>
-            </Grid>
+                    <Accordion>
+                        <AccordionSummary
+                            expandIcon={<ExpandMoreIcon />}
+                            aria-controls="panel1a-content"
+                            id="panel1a-header"
+                        >
+                            <Typography>{this.props.headline}</Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            <Typography>
+                                {this.props.description}
+                            </Typography>
+                        </AccordionDetails>
+                    </Accordion>
+                    <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                        {this.props.event}
+                    </Typography>
+                </CardContent>
+            </Card>
         );
     }
 }

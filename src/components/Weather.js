@@ -4,6 +4,7 @@ import Alert from "./Alert";
 import { Grid } from "@mui/material";
 import moment from "moment";
 import WeatherStationInfoCard from "./WeatherStationInfoCard";
+import ActivityRecommendation from "./ActivityRecommendation";
 
 //https://www.weather.gov/documentation/services-web-api#/
 
@@ -142,10 +143,19 @@ class Weather extends React.Component {
             });
     }
 
-    alertCards = (alerts) => {
+    alertCards = (alerts, gridSize) => {
 
         return alerts
-            .map(a => React.createElement(Alert, a.properties))
+            .map(a => {
+
+                const alertComponent = React.createElement(Alert, a.properties)
+
+                return (
+                    <Grid item xs={gridSize}>
+                        {alertComponent}
+                    </Grid>
+                )
+            })
 
     }
 
@@ -154,29 +164,28 @@ class Weather extends React.Component {
     render() {
 
         return (
-            <div>
-                <Grid container spaceing={2}>
-                    <Grid item xs={12}>
-                        <WeatherStationInfoCard
-                            latitude={this.state.latitude}
-                            longitude={this.state.longitude}
-                            station={this.state.station}
-                            zone={this.state.zone} />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <WeatherConditionEmoji textDescription={this.state.latestCondition} />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <p>There are {this.activeAlerts(this.state.alerts).length} active alerts for your area.</p>
-                    </Grid>
-                    <Grid item xs={12}>
-                        {this.alertCards(this.activeAlerts(this.state.alerts))}
-                    </Grid>
-                    <Grid item xs={12}>
-                        {React.createElement('p', { style: { color: "blue" } }, JSON.stringify(this.state.forecast.properties))}
-                    </Grid>
+            <Grid container spacing={2}>
+                <Grid item xs={4}>
+                    <WeatherConditionEmoji textDescription={this.state.latestCondition} />
                 </Grid>
-            </div>
+                <Grid item xs={4}>
+                    <WeatherStationInfoCard
+                        latitude={this.state.latitude}
+                        longitude={this.state.longitude}
+                        station={this.state.station}
+                        zone={this.state.zone} />
+                </Grid>
+                <Grid item xs={12}>
+                    <p>There are {this.activeAlerts(this.state.alerts).length} active alerts for your area.</p>
+                </Grid>
+
+                {this.alertCards(this.activeAlerts(this.state.alerts), 4)}
+
+                <Grid item xs={12}>
+                    <ActivityRecommendation />
+                </Grid>
+
+            </Grid>
         );
     }
 }

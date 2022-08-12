@@ -11,11 +11,12 @@ class WeatherStationInfoCard extends React.Component {
         return (
             <Card sx={{ minWidth: 275 }}>
                 <CardContent>
-                    <Typography variant="h5" component="div">
-                        Local Information
+                    <Typography variant="h4" component="div">
+                        Local Station
                     </Typography>
                     <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                        coordinates: ({this.props.latitude}, {this.props.longitude}) 
+                        Your coordinates: <br/>
+                        ({this.props.latitude}, {this.props.longitude}) 
                     </Typography>
                     <Typography sx={{ mb: 1.5 }} color="text.secondary">
                         station: {this.props.station}
