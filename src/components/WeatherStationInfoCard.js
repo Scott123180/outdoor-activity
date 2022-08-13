@@ -24,6 +24,9 @@ class WeatherStationInfoCard extends React.Component {
                     <Typography sx={{ mb: 1.5 }} color="text.secondary">
                         zone: {this.props.zone}
                     </Typography>
+                    <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                        weather station: {this.props.cwa}
+                    </Typography>
                 </CardContent>
             </Card>
         );

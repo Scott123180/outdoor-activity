@@ -66,6 +66,7 @@ class Weather extends React.Component {
         const forecastZone =
             zones.features.filter((feature) => feature.id.includes("forecast"))[0];
 
+        const weatherOffice = zones.features[0].properties.cwa[0];
 
         //GET FORECAST
         const forecast = await fetch("https://api.weather.gov/zones/public/" + forecastZone.properties.id + "/forecast",
@@ -100,7 +101,8 @@ class Weather extends React.Component {
             forecast: forecast,
             zone: forecastZone.properties.id,
             station: station,
-            latestCondition: latest.properties.textDescription
+            latestCondition: latest.properties.textDescription,
+            cwa: weatherOffice
         });
 
     }
@@ -173,7 +175,9 @@ class Weather extends React.Component {
                         latitude={this.state.latitude}
                         longitude={this.state.longitude}
                         station={this.state.station}
-                        zone={this.state.zone} />
+                        zone={this.state.zone}
+                        cwa={this.state.cwa} 
+                    />
                 </Grid>
                 <Grid item xs={12}>
                     <p>There are {this.activeAlerts(this.state.alerts).length} active alerts for your area.</p>
