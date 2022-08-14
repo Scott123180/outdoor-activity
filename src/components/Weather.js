@@ -94,7 +94,8 @@ class Weather extends React.Component {
         times are given in UTC with no ajustment. may need to call additional api for user time
         http://api.sunrise-sunset.org/json?lat=40.7337633&lng=-74.0417513
 
-        
+        air quality api documentation
+        https://aqs.epa.gov/aqsweb/documents/data_api.html
 
         */
 
