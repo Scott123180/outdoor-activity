@@ -87,10 +87,14 @@ class Weather extends React.Component {
             { method: "GET", })
             .then(response => response.json());
 
-        //sunrise and sunset
         /*
+        ADDITIONAL DATA:
+
+        sunrise and sunset
         times are given in UTC with no ajustment. may need to call additional api for user time
         http://api.sunrise-sunset.org/json?lat=40.7337633&lng=-74.0417513
+
+        
 
         */
 
