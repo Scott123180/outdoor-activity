@@ -5,6 +5,7 @@ import { Grid } from "@mui/material";
 import moment from "moment";
 import WeatherStationInfoCard from "./WeatherStationInfoCard";
 import ActivityRecommendation from "./ActivityRecommendation";
+import ActivityDuration from "./ActivityDuration";
 
 //https://www.weather.gov/documentation/services-web-api#/
 
@@ -187,6 +188,9 @@ class Weather extends React.Component {
 
                 <Grid item xs={12}>
                     <ActivityRecommendation />
+                </Grid>
+                <Grid item xs={12} style={{backgroundColor: 'white'}}>
+                    <ActivityDuration />
                 </Grid>
 
             </Grid>
