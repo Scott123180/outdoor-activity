@@ -28,7 +28,7 @@ class ActivityDuration extends React.Component {
 
         return (
             <div style={{color: 'black'}}>
-                <p>time: {this.state.startTime.toString()}</p>
+                <p>Start time: {this.state.startTime.toString()}</p>
 
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                     <TimePicker
