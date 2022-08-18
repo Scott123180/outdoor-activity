@@ -1,4 +1,5 @@
 import React from 'react';
+import ActivitySelector from './ActivitySelector';
 
 class ActivityRecommendation extends React.Component {
 
@@ -7,8 +8,7 @@ class ActivityRecommendation extends React.Component {
             <div>
                 <h2>Activity & Safety Recommendation</h2>
                 <p>coming soon...</p>
-
-
+                <ActivitySelector />
             </div>
         )
 

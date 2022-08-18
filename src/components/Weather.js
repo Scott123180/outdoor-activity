@@ -173,10 +173,10 @@ class Weather extends React.Component {
 
         return (
             <Grid container spacing={2}>
-                <Grid item xs={4}>
+                <Grid item xs={12} md={4}>
                     <WeatherConditionEmoji textDescription={this.state.latestCondition} />
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={12} md={4}>
                     <WeatherStationInfoCard
                         latitude={this.state.latitude}
                         longitude={this.state.longitude}
