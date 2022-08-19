@@ -6,23 +6,27 @@ import {FaRunning, FaWalking} from 'react-icons/fa';
 
 
 class ActivitySelector extends React.Component {
+    
+    constructor(props){
+        super(props);
+    }
 
     render() {
 
         return (
-            <div>
+            <div style={{color:"black"}}>
                 <p>Type of activity</p>
                 <ButtonGroup variant="contained" aria-label="outlined primary button group">
-                    <Button><FaWalking /></Button>
-                    <Button><FaRunning /></Button>
-                    <Button><MdDirectionsBike /></Button>
+                    <Button onClick={() => this.props.updateActivity("activityType", "walking")}><FaWalking size="28"/></Button>
+                    <Button onClick={() => this.props.updateActivity("activityType", "running")}><FaRunning size="28"/></Button>
+                    <Button onClick={() => this.props.updateActivity("activityType", "cycling")}><MdDirectionsBike size="28" /></Button>
                 </ButtonGroup>
                 <p>Intensity</p> 
                 <ButtonGroup variant="contained" aria-label="outlined primary button group">
-                    <Button>Easy</Button>
-                    <Button>Moderate</Button>
-                    <Button>Hard</Button>
-                    <Button>Max Effort</Button>
+                    <Button onClick={() => this.props.updateActivity("activityIntensity", "easy")}>Easy</Button>
+                    <Button onClick={() => this.props.updateActivity("activityIntensity", "moderate")}>Moderate</Button>
+                    <Button onClick={() => this.props.updateActivity("activityIntensity", "hard")}>Hard</Button>
+                    <Button onClick={() => this.props.updateActivity("activityIntensity", "maxEffort")}>Max Effort</Button>
                 </ButtonGroup>
 
 

@@ -6,6 +6,7 @@ import moment from "moment";
 import WeatherStationInfoCard from "./WeatherStationInfoCard";
 import ActivityRecommendation from "./ActivityRecommendation";
 import ActivityDuration from "./ActivityDuration";
+import ActivitySelector from "./ActivitySelector";
 
 //https://www.weather.gov/documentation/services-web-api#/
 
@@ -38,7 +39,11 @@ class Weather extends React.Component {
             alerts: [],
             zone: "",
             forecast: {},
-            station: ""
+            station: "",
+            activityType: "",
+            activityIntensity: "",
+            activityStart: "",
+            activityDuration: ""
         };
     }
 
@@ -169,6 +174,10 @@ class Weather extends React.Component {
 
     noEndTimeSpecified = (ends) => ends === null;
 
+    updateActivity = (key, value) =>{
+        this.setState({[[key]] : value}); 
+    }
+
     render() {
 
         return (
@@ -194,8 +203,11 @@ class Weather extends React.Component {
                 <Grid item xs={12}>
                     <ActivityRecommendation />
                 </Grid>
-                <Grid item xs={12} style={{backgroundColor: 'white'}}>
-                    <ActivityDuration />
+                <Grid item xs={12} style={{backgroundColor: 'white', color:"black"}}>
+                    <p>Activity {this.state.activityType}</p>
+                    <ActivitySelector updateActivity={(key, value) => this.updateActivity(key,value)}/>
+                    <p>Intensity {this.state.activityIntensity}</p>
+                    <ActivityDuration updateActivity={(key, value) => this.updateActivity(key,value)}/>
                 </Grid>
 
             </Grid>
