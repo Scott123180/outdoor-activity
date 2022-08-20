@@ -1,16 +1,14 @@
+import moment from 'moment';
 import React from 'react';
 
 export const RecommendationContext = React.createContext();
 
 class ActivityRecommendation extends React.Component {
 
-    constructor(){
-        super();
+    applyLocalOffset = (time) => {
+        const utcTime = moment.utc(time,"HH:mm:ss A")
 
-        this.state = {
-            activityType: "",
-            activityIntensity : ""
-        }
+        return utcTime.local().format("hh:mm A")
 
     }
 
@@ -18,10 +16,14 @@ class ActivityRecommendation extends React.Component {
         return (
             <div>
                 <h2>Activity & Safety Recommendation</h2>
-                <p>coming soon...</p>
+                Sunrise at {this.applyLocalOffset(this.props.sunrise)}
+                <br />
+                Sunset at {this.applyLocalOffset(this.props.sunset)}
+                <br />
+                <br />
+                Recommendation: wear bright colors so you can be seen.
             </div>
         )
-
     }
 
 

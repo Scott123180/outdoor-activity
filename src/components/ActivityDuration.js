@@ -32,6 +32,7 @@ class ActivityDuration extends React.Component {
 
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                     <TimePicker
+                        disabled
                         label="Activity Start Time"
                         value={this.state.startTime}
                         onChange={(value) => this.setState({ startTime: value })}

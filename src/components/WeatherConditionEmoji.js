@@ -42,6 +42,10 @@ class WeatherConditionEmoji extends React.Component {
 
     }
 
+    celciusToFarenheit = (degreesCelcius) => {
+        return Math.round((degreesCelcius * (9/5)) + 32);
+    }
+
 
 
 
@@ -60,7 +64,10 @@ class WeatherConditionEmoji extends React.Component {
                         {this.props.textDescription}
                     </Typography>
                     <Typography variant="body2">
-                        additional description
+                        Temperature: {this.celciusToFarenheit(this.props.currentTemperature)} 
+                    </Typography>
+                    <Typography variant="body2">
+                        Feels like: {this.celciusToFarenheit(this.props.currentHeatIndex)} 
                     </Typography>
                 </CardContent>
             </Card>

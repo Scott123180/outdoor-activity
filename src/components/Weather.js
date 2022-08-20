@@ -43,7 +43,11 @@ class Weather extends React.Component {
             activityType: "",
             activityIntensity: "",
             activityStart: "",
-            activityDuration: ""
+            activityDuration: "",
+            currentTemperature: "",
+            currentHeatIndex: "",
+            sunrise: "",
+            sunset: ""
         };
     }
 
@@ -92,6 +96,13 @@ class Weather extends React.Component {
             { method: "GET", })
             .then(response => response.json());
 
+        const sunriseSunset = await fetch("http://api.sunrise-sunset.org/json?" + new URLSearchParams({
+            lat: latitude,
+            lng:longitude
+        }),  
+            { method: "GET", })
+            .then(response => response.json());
+
         /*
         ADDITIONAL DATA:
 
@@ -113,7 +124,11 @@ class Weather extends React.Component {
             zone: forecastZone.properties.id,
             station: station,
             latestCondition: latest.properties.textDescription,
-            cwa: weatherOffice
+            currentTemperature: latest.properties.temperature.value,
+            currentHeatIndex: latest.properties.heatIndex.value,
+            cwa: weatherOffice,
+            sunrise: sunriseSunset.results.sunrise,
+            sunset: sunriseSunset.results.sunset
         });
 
     }
@@ -174,8 +189,8 @@ class Weather extends React.Component {
 
     noEndTimeSpecified = (ends) => ends === null;
 
-    updateActivity = (key, value) =>{
-        this.setState({[[key]] : value}); 
+    updateActivity = (key, value) => {
+        this.setState({ [[key]]: value });
     }
 
     render() {
@@ -183,7 +198,11 @@ class Weather extends React.Component {
         return (
             <Grid container spacing={2}>
                 <Grid item xs={12} md={4}>
-                    <WeatherConditionEmoji textDescription={this.state.latestCondition} />
+                    <WeatherConditionEmoji 
+                        textDescription={this.state.latestCondition} 
+                        currentTemperature={this.state.currentTemperature}
+                        currentHeatIndex={this.state.currentHeatIndex}
+                    />
                 </Grid>
                 <Grid item xs={12} md={4}>
                     <WeatherStationInfoCard
@@ -191,7 +210,7 @@ class Weather extends React.Component {
                         longitude={this.state.longitude}
                         station={this.state.station}
                         zone={this.state.zone}
-                        cwa={this.state.cwa} 
+                        cwa={this.state.cwa}
                     />
                 </Grid>
                 <Grid item xs={12}>
@@ -200,14 +219,24 @@ class Weather extends React.Component {
 
                 {this.alertCards(this.activeAlerts(this.state.alerts), 4)}
 
-                <Grid item xs={12}>
-                    <ActivityRecommendation />
-                </Grid>
-                <Grid item xs={12} style={{backgroundColor: 'white', color:"black"}}>
+                <Grid item xs={12} style={{ backgroundColor: 'white', color: "black" }}>
                     <p>Activity {this.state.activityType}</p>
-                    <ActivitySelector updateActivity={(key, value) => this.updateActivity(key,value)}/>
+                    <ActivitySelector updateActivity={(key, value) => this.updateActivity(key, value)} />
                     <p>Intensity {this.state.activityIntensity}</p>
-                    <ActivityDuration updateActivity={(key, value) => this.updateActivity(key,value)}/>
+                    <ActivityDuration updateActivity={(key, value) => this.updateActivity(key, value)} />
+                </Grid>
+
+                <Grid item xs={12}>
+                    <ActivityRecommendation
+                        activityType={this.state.activityType}
+                        activityIntensity={this.state.activityIntensity}
+                        currentHeatIndex={this.state.currentHeatIndex}
+                        activityDuration={this.state.activityDuration}
+                        activityStart={this.state.activityStart}
+                        sunrise={this.state.sunrise}
+                        sunset={this.state.sunset}
+
+                    />
                 </Grid>
 
             </Grid>
