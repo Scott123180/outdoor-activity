@@ -7,10 +7,6 @@ import {FaRunning, FaWalking} from 'react-icons/fa';
 
 class ActivitySelector extends React.Component {
     
-    constructor(props){
-        super(props);
-    }
-
     render() {
 
         return (
