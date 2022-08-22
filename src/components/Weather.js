@@ -153,6 +153,7 @@ class Weather extends React.Component {
         });
     }
     activeAlerts = (alerts) => {
+        //return alerts;
         const currentTime = moment.utc();
 
         return alerts
@@ -173,7 +174,7 @@ class Weather extends React.Component {
             });
     }
 
-    alertCards = (alerts, gridSize) => {
+    alertCards = (alerts) => {
 
         return alerts
             .map(a => {
@@ -181,7 +182,7 @@ class Weather extends React.Component {
                 const alertComponent = React.createElement(Alert, a.properties)
 
                 return (
-                    <Grid item xs={gridSize}>
+                    <Grid item xs={12} md={4} key={a.properties.id}>
                         {alertComponent}
                     </Grid>
                 )
@@ -219,7 +220,7 @@ class Weather extends React.Component {
                     <p>There are {this.activeAlerts(this.state.alerts).length} active alerts for your area.</p>
                 </Grid>
 
-                {this.alertCards(this.activeAlerts(this.state.alerts), 4)}
+                {this.alertCards(this.activeAlerts(this.state.alerts))}
 
                 <Grid item xs={12} style={{ backgroundColor: 'white', color: "black" }}>
                     <p>Activity {this.state.activityType}</p>
