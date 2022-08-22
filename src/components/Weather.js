@@ -26,6 +26,8 @@ import ActivitySelector from "./ActivitySelector";
 
 */
 
+export const WeatherContext = React.createContext();
+
 class Weather extends React.Component {
 
     govUrl = "https://api.weather.gov";

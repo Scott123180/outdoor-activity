@@ -11,8 +11,9 @@ function App() {
       <Weather />
       </header>
       <footer className="Footer">
-        Disclaimer: Use application at your own risk. Data and information may be innacurate. Application is in development and features may be broken. 
-        Please consult your physician before excercise. Weather data from weather.gov. 
+        Disclaimer: Use application at your own risk. Data and information may be innacurate. 
+        Alerts may be test messages issued by US government and not real alerts. Application is in development and features may be broken. 
+        Please consult your physician before excercise. Weather data from weather.gov. and other sources.
         &nbsp;<a href='https://github.com/Scott123180/outdoor-activity' target="_blank" rel="noreferrer">Github and attributions.</a>
       </footer>
     </div>
