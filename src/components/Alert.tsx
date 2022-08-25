@@ -14,15 +14,16 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 
 //https://www.weather.gov/hun/zfp_terminology
-const advisoryIconMap = {
-    'Special Weather Statement': [<AiOutlineExclamationCircle size={50} />],
-    'Heat Advisory': [<FaTemperatureHigh size={50} />],
-    'Air Quality Alert': [<GiGasMask size={50} />]
-}
+const advisoryIconMap = new Map<string, JSX.Element> ([
+    ['Special Weather Statement', <AiOutlineExclamationCircle size={50} />],
+    ['Heat Advisory', <FaTemperatureHigh size={50} />],
+    ['Air Quality Alert', <GiGasMask size={50} />]
+])
 
-const Alert = (props) => {
+const Alert = (props: any) => {
+    const eventType: string = props.event;
 
-    const weatherIcon = props.event === null ? "picture" : advisoryIconMap[props.event];
+    const weatherIcon = props.event === null ? "picture" : advisoryIconMap.get(eventType);
 
     return (
         <Card>
