@@ -1,11 +1,15 @@
 import './App.css';
 import Weather from './components/Weather';
+import moment from 'moment';
 
 function App() {
   return (
     <div className="App" style={{padding: 10}}>
       <header className="App-header">
-        Welcome to a weather app!
+        Welcome to a weather activity app!
+        <br/>
+        <br/>
+        Current time: {moment().local().format("hh:mm A")}
         <br/>
         <br/>
       <Weather />
