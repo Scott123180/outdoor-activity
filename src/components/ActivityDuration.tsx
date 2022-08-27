@@ -1,4 +1,5 @@
-import React from 'react';
+import * as React from 'react';
+import {useState} from 'react'; 
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -8,34 +9,24 @@ import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 
 
-class ActivityDuration extends React.Component {
+function valuetext(value: any) {
+    return `${value} hours`;
+}
 
-    constructor(props) {
-        super(props);
+const ActivityDuration = (props: any) => {
 
-        this.state = {
-            startTime: new Date(),
-            duration: 0
-        }
-
-    }
-
-
-    render() {
-        function valuetext(value) {
-            return `${value} hours`;
-        }
-
+    const [startTime, setStartTime] = useState<Date | null>(new Date());
+    const [duration, setDuration] = useState<number | number[]>(0);
         return (
             <div style={{color: 'black'}}>
-                <p>Start time: {this.state.startTime.toString()}</p>
+                <p>Start time: { (startTime ?? new Date()).toString()}</p>
 
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                     <TimePicker
                         disabled
                         label="Activity Start Time"
-                        value={this.state.startTime}
-                        onChange={(value) => this.setState({ startTime: value })}
+                        value={startTime}
+                        onChange={(value) => setStartTime(value)}
                         renderInput={(params) => <TextField {...params} />}
                     />
                 </LocalizationProvider>
@@ -43,7 +34,7 @@ class ActivityDuration extends React.Component {
                 <p style={{ color: 'black' }}>Activity Duration</p>
                 <Box sx={{ width: 300 }}>
                     <Typography id="non-linear-slider" gutterBottom style={{ color: 'black' }}>
-                        Duration: {this.state.duration} hours
+                        Duration: {duration} hours
                     </Typography>
 
                     <Slider
@@ -55,14 +46,12 @@ class ActivityDuration extends React.Component {
                         min={0}
                         max={12}
                         valueLabelDisplay="auto"
-                        onChange={(event, value) => this.setState({ duration: value })}
+                        onChange={(event, value) => setDuration(value)}
                     />
                 </Box>
 
             </div>
         );
-    }
-
 
 }
 
