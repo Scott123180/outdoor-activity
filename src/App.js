@@ -1,8 +1,12 @@
 import './App.css';
 import Weather, { WeatherContext } from './components/Weather';
 import moment from 'moment';
+import { useState } from 'react';
 
 function App() {
+
+  const[apiData, setApiData] = useState();
+
   return (
     <div className="App" style={{ padding: 10 }}>
       <header className="App-header">
