@@ -1,13 +1,10 @@
-import React from "react";
+import * as React from "react";
 
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 
-class WeatherStationInfoCard extends React.Component {
-
-    render() {
-
+const WeatherStationInfoCard = (props: any) => {
         return (
             <Card sx={{ minWidth: 275 }}>
                 <CardContent>
@@ -16,23 +13,20 @@ class WeatherStationInfoCard extends React.Component {
                     </Typography>
                     <Typography sx={{ mb: 1.5 }} color="text.secondary">
                         Your coordinates: <br/>
-                        ({this.props.latitude}, {this.props.longitude}) 
+                        ({props.latitude}, {props.longitude}) 
                     </Typography>
                     <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                        station: {this.props.station}
+                        station: {props.station}
                     </Typography>
                     <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                        zone: {this.props.zone}
+                        zone: {props.zone}
                     </Typography>
                     <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                        weather station: {this.props.cwa}
+                        weather station: {props.cwa}
                     </Typography>
                 </CardContent>
             </Card>
         );
-
-    }
-
 }
 
 WeatherStationInfoCard.defaultProps = {

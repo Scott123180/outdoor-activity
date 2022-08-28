@@ -1,5 +1,5 @@
 import React from "react";
-import WeatherConditionEmoji from "./WeatherConditionEmoji";
+import WeatherConditionEmoji from "./WeatherConditionEmoji.tsx";
 import Alert from "./Alert";
 import { Grid } from "@mui/material";
 import moment from "moment";
